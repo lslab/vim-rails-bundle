@@ -1,3 +1,10 @@
+" Init by os enviroment
+" {{{ 
+    if has('win32') || has('win64')
+      set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after      
+    endif
+" }}}
+
 " Init
 " {{{
   runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -13,15 +20,44 @@
 " Settings
 " {{{
 "   Basic {{{
+
+      if has('win32') || has('win64')
+        """""""""""""""""""""""""""""
+        "解决windows下的中文乱码问题
+        """""""""""""""""""""""""""""
+        set fileencodings=ucs-bom,utf-8,chinese,latin-1
+        set fileencoding=chinese
+        "解决中文菜单乱码
+        set langmenu=zh_CN.utf-8
+        "source $VIMRUNTIME/delmenu.vim
+        "source $VIMRUNTIME/menu.vim
+        "解决console输出乱码
+        language messages zh_cn.utf-8
+        set guioptions+=a
+        set nobackup
+        set nowritebackup
+        set noswapfile
+        set clipboard=unnamed 
+        set noerrorbells   "don't beep!
+        set novisualbell   "don't beep!
+        set t_vb=         "don't beep!
+        if has("gui") 
+          autocmd GUIEnter * set t_vb= 
+        endif 
+      else
+        set fileencoding=utf-8
+        set clipboard+=unnamed,unnamedplus,autoselect " share clipboard
+        set backup " create backup
+        set backupdir=~/.vim/tmp/backup " where to put backup files
+        set directory=~/.vim/tmp/swap " directory to place swap files in
+        "set undodir=~/.vim/tmp/undo " directory to place undo files in
+        "set undofile " create undo file
+      endif
+
       filetype plugin indent on
 
       set backspace=indent,eol,start " make backspace a more flexible
       let loaded_matchparen=1 " match paranthesis
-      set backup " create backup
-      set backupdir=~/.vim/tmp/backup " where to put backup files
-      set directory=~/.vim/tmp/swap " directory to place swap files in
-      "set undodir=~/.vim/tmp/undo " directory to place undo files in
-      "set undofile " create undo file
       set mouse=a " use mouse for everything
       set equalalways " split windows equally
       set splitright splitbelow " new splits right from current and other below
@@ -29,7 +65,6 @@
       set wildmenu " wildmenu when autocomplting option
       set wildmode=full " complete the full match, this is default behaviour
       set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png " there files will be ignored when completing in wild menu
-      set clipboard+=unnamed,unnamedplus,autoselect " share clipboard
       set history=1000
       set tags=.tags;/ " save tags generated for files in current working directory
       set ttyfast " i got a fast terminal!
@@ -38,7 +73,7 @@
     " }}}
 
     " UI {{{
-      colorscheme Monokai " Color scheme
+      "colorscheme Monokai " Color scheme
 
       set tabstop=4 " when there's tab, it should be indented by 4 spaces
       set shiftwidth=2 " Number of spaces to use for each step of (auto)indent
@@ -71,7 +106,7 @@
 
       set expandtab " no real tabs!
       set wrap " wrap lines, we dont want long lines
-      set showbreak=↪ " character show when wrapping line
+      "set showbreak=↪ " character show when wrapping line
 
       set foldenable " folding text into clusters (+) according to  {{{ }}} or comments for example.
       set foldmethod=manual " default options, we create fold manually.
@@ -84,19 +119,23 @@
       set tabstop=4 " real tabs should be 4, and they will show with set list on
 
       set completeopt=longest,menu,preview
+
+      set pastetoggle=<F5>
       " }}}
 
     " Advanced macros
     " {{{
 
       " Cursor highlight
-      :hi CursorLine   cterm=NONE ctermbg=8
+      ":hi CursorLine   cterm=NONE ctermbg=8
+      :hi CursorLine   cterm=NONE ctermbg=14 ctermfg=black
       :hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
       :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
       set cursorline
 
       "improve autocomplete menu color
-      highlight Pmenu ctermbg=238
+      "highlight Pmenu ctermbg=238
+      highlight Pmenu ctermbg=24
       " }}}
       "
 
@@ -369,6 +408,8 @@
       let g:NERDTreeMinimalUI=1
       let g:NERDTreeDirArrows=1
       let g:NERTreeHighlightCursorLine=1
+      let g:NERDTreeShowHidden=1
+      let g:nerdtree_tabs_open_on_gui_startup=0
       "}}}
       "
       " NerdTree Tabs {{{
@@ -517,4 +558,50 @@
   command! Kwbd call s:Kwbd(1)
   nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
 
+" }}}
+
+
+" tmux setting
+" {{{
+  if &term =~ '^screen' && exists('$TMUX')
+    set mouse+=a
+    set ttymouse=xterm2
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+    execute "set <xHome>=\e[1;*H"
+    execute "set <xEnd>=\e[1;*F"
+    execute "set <Insert>=\e[2;*~"
+    execute "set <Delete>=\e[3;*~"
+    execute "set <PageUp>=\e[5;*~"
+    execute "set <PageDown>=\e[6;*~"
+    execute "set <xF1>=\e[1;*P"
+    execute "set <xF2>=\e[1;*Q"
+    execute "set <xF3>=\e[1;*R"
+    execute "set <xF4>=\e[1;*S"
+    execute "set <F5>=\e[15;*~"
+    execute "set <F6>=\e[17;*~"
+    execute "set <F7>=\e[18;*~"
+    execute "set <F8>=\e[19;*~"
+    execute "set <F9>=\e[20;*~"
+    execute "set <F10>=\e[21;*~"
+    execute "set <F11>=\e[23;*~"
+    execute "set <F12>=\e[24;*~"
+  endif
+" }}}
+
+" insert mode setting
+" {{{
+    :imap <C-h> <C-o>h
+    :imap <C-j> <C-o>j
+    :imap <C-k> <C-o>k
+    :imap <C-l> <C-o>l
+" }}}
+
+
+" surround setting
+" {{{
+    let g:surround_{char2nr('=')} = "<%= \r %>"
+    let g:surround_{char2nr('-')} = "<% \r %>"
 " }}}
