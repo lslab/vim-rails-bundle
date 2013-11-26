@@ -591,12 +591,31 @@
   endif
 " }}}
 
+
 " insert mode setting
 " {{{
-    :imap <C-h> <C-o>h
-    :imap <C-j> <C-o>j
-    :imap <C-k> <C-o>k
-    :imap <C-l> <C-o>l
+" }}}
+
+" insert mode setting
+" {{{
+    if has('win32') || has('win64')
+      inoremap <A-h> <C-o>h
+      inoremap <A-j> <C-o>j
+      inoremap <A-k> <C-o>k
+      inoremap <A-l> <C-o>l
+    else
+      " fix meta-keys which generate <Esc>a .. <Esc>z
+      let c='a'
+      while c <= 'z'
+        exec "set <M-".toupper(c).">=\e".c
+        exec "imap \e".c." <M-".toupper(c).">"
+        let c = nr2char(1+char2nr(c))
+      endw
+      inoremap <M-H> <C-o>h
+      inoremap <M-J> <C-o>j
+      inoremap <M-K> <C-o>k
+      inoremap <M-L> <C-o>l
+    end
 " }}}
 
 
