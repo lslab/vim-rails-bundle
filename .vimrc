@@ -168,7 +168,7 @@
       let mapleader = ',' " used for lot of stuff, feel free to change it.
 
       " Open all folds
-      nnoremap <space> :%foldopen<CR>
+      " nnoremap <space> :%foldopen<CR>
 
       " convenient window switching
       map <C-h> <C-w>j
@@ -598,6 +598,7 @@
 
 " insert mode setting
 " {{{
+    inoremap <C-D> <Del>
     if has('win32') || has('win64')
       inoremap <A-h> <C-o>h
       inoremap <A-j> <C-o>j
