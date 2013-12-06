@@ -350,7 +350,8 @@
       set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
       nnoremap <F3> :CtrlP<CR>
       nnoremap <F4> :CtrlPBuffer<CR>
-      nnoremap <F2> :CtrlPDir<CR>
+      nnoremap <F2> :CtrlPMRU<CR>
+      " nnoremap <F2> :CtrlPDir<CR>
       let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
             \ 'file': '\v\.(exe|so|dll)$'
