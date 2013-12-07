@@ -444,10 +444,16 @@
 
     " }}}
 
+
     " GUI setting
     " {{{
+
     if has('gui_running')
-      set guifont=Dejavu\ Sans\ Mono\ 9
+      if has("gui_win32")
+        set guifont=Consolas:h12
+      else
+        set guifont=Dejavu\ Sans\ Mono\ 9
+      endif
       set guioptions-=m  "remove menu bar
       set guioptions-=T  "remove toolbar
       set guioptions-=r  "remove right-hand scroll bar
