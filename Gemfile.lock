@@ -5,6 +5,7 @@ GEM
     settingslogic (2.0.9)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES

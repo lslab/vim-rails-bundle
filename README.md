@@ -65,6 +65,10 @@ cd .vim-rails-bundle
 git submodule foreach git pull # if git complains, just use git pull origin master
 ```
 
+```
+ln -s .vimrc ~/.vimrc
+ln -s .vim ~/.vim
+```
 Now, run `vim`, `gvim_for_rails` or open `Gvim for Rails` and start hackin'!
 
 If something isn't woking for you, create [an issue](https://github.com/smolnar/vim-rails-bundle/issues).
