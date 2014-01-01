@@ -48,10 +48,10 @@
         set fileencoding=utf-8
         set clipboard+=unnamed,unnamedplus,autoselect " share clipboard
         set backup " create backup
-        set backupdir=~/.vim/tmp/backup " where to put backup files
-        set directory=~/.vim/tmp/swap " directory to place swap files in
-        "set undodir=~/.vim/tmp/undo " directory to place undo files in
-        "set undofile " create undo file
+        set backupdir=~/.vim/tmp " where to put backup files
+        set directory=~/.vim/tmp " directory to place swap files in
+        set undodir=~/.vim/tmp " directory to place undo files in
+        set undofile " create undo file
       endif
 
       filetype plugin indent on
