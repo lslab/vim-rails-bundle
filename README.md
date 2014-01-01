@@ -65,7 +65,7 @@ cd .vim-rails-bundle
 git submodule foreach git pull # if git complains, just use git pull origin master
 ```
 
-Create sysbolic link file and dir in home directory
+Create symbolic link file and dir in home directory
 ```
 ln -s .vimrc ~/.vimrc
 ln -s .vim ~/.vim
